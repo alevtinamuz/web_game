@@ -2,9 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import GameView from '../views/GameView.vue'
 import RatingView from '../views/RatingView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import LoginView from '../views/LoginView.vue'
+import SignUp from '../views/SignUp.vue'
+import SignIn from '../views/SignIn.vue'
 import ProfileView from '../views/ProfileView.vue'
+import SignOut from '../views/SignOut.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -24,9 +25,9 @@ const routes: Array<RouteRecordRaw> = [
     component: RatingView
   },
   {
-    path: '/register',
-    name: 'register',
-    component: RegisterView
+    path: '/sign-up',
+    name: 'sign-up',
+    component: SignUp
   },
   {
     path: '/profile',
@@ -34,9 +35,14 @@ const routes: Array<RouteRecordRaw> = [
     component: ProfileView
   },
   {
-    path: '/login',
-    name: 'login',
-    component: LoginView
+    path: '/sign-in',
+    name: 'sign-in',
+    component: SignIn
+  },
+  {
+    path: '/sign-out',
+    name: 'sign-out',
+    component: SignOut
   }
 ]
 
