@@ -9,7 +9,7 @@
         mounted: function() {
             const canvas = this.$refs.supercanvas;
             const ctx = canvas.getContext('2d');
-
+            
         }
     }
 </script>
