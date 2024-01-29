@@ -25,6 +25,7 @@
             setInterval(() => {
                 ctx.clearRect(x, y, 50, 50);
                 x--;
+                y--;
                 ctx.fillRect(x, y, 50, 50);
             }, 10);
         }
