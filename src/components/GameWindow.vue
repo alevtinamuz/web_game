@@ -119,16 +119,6 @@
 
             startGeneration()
             window.requestAnimationFrame(step);
-        
-            
-
-            // setInterval(() => {
-            //     ctx.clearRect(0, 0, 800, 600)
-            //     for (let i = 0; i < 2; i++) {
-            //         clouds[i].move();
-            //         bushes[i].move();
-            //     }
-            // }, 10);
         }
     }
 </script>
