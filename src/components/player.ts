@@ -41,6 +41,10 @@ class Player {
     rocket() {
         console.log("HelloWorld")
     }
+
+    move() {
+        this.x++;
+    }
 }
 
 export {Player}

@@ -11,18 +11,17 @@
         mounted: function() {
             const canvas = this.$refs.supercanvas;
             const ctx = canvas.getContext('2d');
-            
-            var player = new Player(150, 250, '', 30, 50, 0, 30, false, '', false, false);
-            var x = 750;
-            var y = 550;
-
-            ctx.fillRect(x, y, 50, 50);
+        
+            var player = new Player(150, 250, 'cat', 30, 50, 0, 30, false, '', false, false);
 
             setInterval(() => {
-                ctx.clearRect(x, y, 50, 50);
-                x--;
-                y--;
-                ctx.fillRect(x, y, 50, 50);
+                const pic = new Image();
+                pic.src = require(`@/assets/${player.img}.png`);
+                pic.onload = function() {
+                    ctx.drawImage(pic, player.x, player.y, 50, 50);
+                }
+                player.move();
+                
             }, 10);
         }
     }
