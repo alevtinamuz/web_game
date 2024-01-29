@@ -11,10 +11,8 @@
     import {Bushes} from './Bushes';
     export default {
         mounted: function() {
-            // const canvas = this.$refs.supercanvas;
+            const canvas = this.$refs.supercanvas;
             const ctx = canvas.getContext('2d');
-            
-            var player = new Player(150, 250, '/src/assets/cat.png', 30, 50, 0, 30, false, '', false, false);
             // var bushes = [];
             // var clouds = [];
             // bushes.push(new Bushes(400, 750, ''));
