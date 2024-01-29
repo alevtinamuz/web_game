@@ -12,37 +12,44 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: { requiresAuth: true || false }
   },
   {
     path: '/game',
     name: 'game',
-    component: GameView
+    component: GameView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/rating',
-    name: 'rsting',
-    component: RatingView
+    name: 'rating',
+    component: RatingView,
+    meta: { requiresAuth: true || false }
   },
   {
     path: '/sign-up',
     name: 'sign-up',
-    component: SignUp
+    component: SignUp,
+    meta: { requiresAuth: false }
   },
   {
     path: '/profile',
     name: 'profile',
-    component: ProfileView
+    component: ProfileView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/sign-in',
     name: 'sign-in',
-    component: SignIn
+    component: SignIn,
+    meta: { requiresAuth: false }
   },
   {
     path: '/sign-out',
     name: 'sign-out',
-    component: SignOut
+    component: SignOut,
+    meta: { requiresAuth: true }
   }
 ]
 

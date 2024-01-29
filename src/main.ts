@@ -1,8 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import { ref } from 'vue';
 
 import * as firebase from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 
 const firebaseConfig = {

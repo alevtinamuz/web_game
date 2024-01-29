@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { getAuth, createUserWithEmailAndPassword, getIdToken } from "firebase/auth";
+  import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   import { useRouter } from 'vue-router';
   const email = ref('');
   const password = ref('');
@@ -12,12 +12,12 @@
         console.log('Succsesfuly registred!');
         console.log(data);
 
-        let token = data.user.getIdToken();
+        let name = data.user.displayName;
         let userId = data.user.uid;
-        console.log('token', token)
+        console.log('name', name)
         console.log('userId', userId)
 
-        localStorage.setItem('token', token);
+        localStorage.setItem('name', name);
         localStorage.setItem('userId', userId);
 
         router.push('/profile');
