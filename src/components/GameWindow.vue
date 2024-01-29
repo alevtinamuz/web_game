@@ -10,12 +10,6 @@
         mounted: function() {
             const canvas = this.$refs.supercanvas;
             const ctx = canvas.getContext('2d');
-            const pic = new Image();
-            pic.src = require('/src/assets/cat.png');
-            pic.onload = function() {
-                ctx.drawImage(pic, 0, 0, 800, 600);
-            }
-            ctx.fillRect(100, 100, 50, 50);
             
             var x = 750;
             var y = 550;
