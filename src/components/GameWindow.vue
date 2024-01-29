@@ -31,19 +31,27 @@
                 if (bushes[bushes.length - 1].x < 600) {
                     let x = Math.floor(Math.random() * 200) + 800;
                     let y = Math.floor(Math.random() * 50) + 500;
-                    bushes.push(new Bushes(x, y, ''));
+                    bushes.push(new Bushes(x, y, 'bush'));
                 }
             }
 
             function generationClouds() {
                 if (clouds[clouds.length - 1].x < 600) {
-                    let x = Math.floor(Math.random() * 400) + 800;
+                    let x = Math.floor(Math.random() * 300) + 800;
                     let y = Math.floor(Math.random() * 400);
                     clouds.push(new Clouds(x, y, ''));
                 }
             }
 
+            function clearBushes() {
+                if (bushes[0].x <= -50)
+                    bushes.shift()
+            }
 
+            function clearClouds() {
+                if (clouds[0].x <= -50) 
+                    clouds.shift()
+            }
 
             function drawBushes() {
                 for (let i = 0; i < bushes.length; i++) {
@@ -82,25 +90,26 @@
             }
 
             function moveBushes() {
-                for (let i = 0; i < bushes.length; i++) {
+                for (let i = 0; i < bushes.length; i++)
                     bushes[i].move();
-                }
             }
 
             function moveClouds() {
-                for (let i = 0; i < clouds.length; i++) {
+                for (let i = 0; i < clouds.length; i++)
                     clouds[i].move();
-                }
             }
             
             function step() {
                 generationBushes();
-                generationClouds()
+                generationClouds();
 
-                drawBackground()
-                drawPlayer()
+                clearBushes();
+                clearClouds();
+
+                drawBackground();
                 drawBushes();
                 drawClouds();
+                drawPlayer();
 
                 moveBushes();
                 moveClouds();
