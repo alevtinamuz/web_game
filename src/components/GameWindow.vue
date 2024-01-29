@@ -11,7 +11,6 @@
     import {Clouds} from './clouds';
     export default {
         mounted() {
-            // const ctx = this.$refs.supercanvas.getContext('2d');
             var canvas : any = document.getElementById("supercanvas");
             var ctx = canvas.getContext("2d");
             
@@ -19,30 +18,97 @@
             
             var bushes = new Array(0);
             var clouds = new Array(0);
-            bushes.push(new Bushes(750, 400, ''));
-            bushes.push(new Bushes(690, 550, ''));
 
-            clouds.push(new Clouds(430, 50, ''));
-            clouds.push(new Clouds(520, 120, ''));
-            
-            function step() {
-                window.requestAnimationFrame(step);
-                ctx.clearRect(0, 0, 800, 600);
-                // player.move();
-                ctx.fillRect(player.x, player.y, 50, 50);
-                var img = new Image()
-                img.onload = () => {
-                    ctx.drawImage(img, player.x, player.y)
-                }
-                img.src = require('/src/assets/cat.png')
+            function startGeneration() {
+                bushes.push(new Bushes(750, 520, 'bush'));
+                bushes.push(new Bushes(500, 550, 'bush'));
 
-                for (let i = 0; i < 2; i++) {
-                    clouds[i].move();
-                    bushes[i].move();
-                    ctx.fillRect(clouds[i].x, clouds[i].y, 50, 50)
-                    ctx.fillRect(bushes[i].x, bushes[i].y, 50, 50)
+                clouds.push(new Clouds(430, 50, ''));
+                clouds.push(new Clouds(520, 120, ''));
+            }
+
+            function generationBushes() {
+                if (bushes[bushes.length - 1].x < 600) {
+                    let x = Math.floor(Math.random() * 200) + 800;
+                    let y = Math.floor(Math.random() * 50) + 500;
+                    bushes.push(new Bushes(x, y, ''));
                 }
             }
+
+            function generationClouds() {
+                if (clouds[clouds.length - 1].x < 600) {
+                    let x = Math.floor(Math.random() * 400) + 800;
+                    let y = Math.floor(Math.random() * 400);
+                    clouds.push(new Clouds(x, y, ''));
+                }
+            }
+
+
+
+            function drawBushes() {
+                for (let i = 0; i < bushes.length; i++) {
+                    let imgBush = new Image();
+                    imgBush.onload = () => {
+                        ctx.drawImage(imgBush, bushes[i].x, bushes[i].y, 50, 50);
+                    }
+                    imgBush.src = require('/src/assets/bush.png');
+                }
+            }
+
+            function drawClouds() {
+                for (let i = 0; i < clouds.length; i++) {
+                    let imgCloud = new Image();
+                    imgCloud.onload = () => {
+                        ctx.drawImage(imgCloud, clouds[i].x, clouds[i].y, 50, 50);
+                    }
+                    imgCloud.src = require('/src/assets/bush.png');
+                }
+            }
+
+            function drawBackground() {
+                let back = new Image();
+                back.onload = () => {
+                    ctx.drawImage(back, 0, 0, 800, 600);
+                }
+                back.src = require('/src/assets/autumn.png')
+            }
+
+            function drawPlayer() {
+                let img = new Image();
+                img.onload = () => {
+                    ctx.drawImage(img, player.x, player.y, 50, 50);
+                }
+                img.src = require('/src/assets/cat.png');
+            }
+
+            function moveBushes() {
+                for (let i = 0; i < bushes.length; i++) {
+                    bushes[i].move();
+                }
+            }
+
+            function moveClouds() {
+                for (let i = 0; i < clouds.length; i++) {
+                    clouds[i].move();
+                }
+            }
+            
+            function step() {
+                generationBushes();
+                generationClouds()
+
+                drawBackground()
+                drawPlayer()
+                drawBushes();
+                drawClouds();
+
+                moveBushes();
+                moveClouds();
+
+                window.requestAnimationFrame(step);
+            }
+
+            startGeneration()
             window.requestAnimationFrame(step);
         
             
