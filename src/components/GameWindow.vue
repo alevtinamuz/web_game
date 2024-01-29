@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas id="supercanvas" ref="supercanvas" width="800" height="600"></canvas>
+        <canvas id="supercanvas" width="800" height="600"></canvas>
     </div>
 </template>
 
@@ -8,9 +8,10 @@
 <script lang="ts">
     import {Player} from './player';
     export default {
-        mounted: function() {
-            const canvas = this.$refs.supercanvas;
-            const ctx = canvas.getContext('2d');
+        mounted() {
+            // const ctx = this.$refs.supercanvas.getContext('2d');
+            var canvas : any = document.getElementById("supercanvas");
+            var ctx = canvas.getContext("2d");
             
             // var bushes = [];
             // var clouds = [];
