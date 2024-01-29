@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas id="supercanvas" ref="supercanvas" width="800" height="600"></canvas>
+        <canvas id="supercanvas" width="800" height="600"></canvas>
     </div>
 </template>
 
@@ -9,7 +9,7 @@
     import {Player} from './player';
     export default {
         mounted: function() {
-            const canvas: any = document.getElementById("supercanvas");
+            const canvas = this.$refs.supercanvas;
             const ctx = canvas.getContext('2d');
             
             // var bushes = [];
