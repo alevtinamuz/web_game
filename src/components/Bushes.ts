@@ -11,7 +11,7 @@ class Bushes {
     }
 
     move() {
-        console.log("HelloWorld")
+        this.x--;
     }
 }
 

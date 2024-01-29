@@ -7,16 +7,17 @@
 
 <script lang="ts">
     import {Player} from './player';
+    import {Bushes} from './bushes';
     export default {
         mounted() {
             // const ctx = this.$refs.supercanvas.getContext('2d');
             var canvas : any = document.getElementById("supercanvas");
             var ctx = canvas.getContext("2d");
             
-            // var bushes = [];
+            // var bushes = new Array(0);
             // var clouds = [];
-            // bushes.push(new Bushes(400, 750, ''));
-            // bushes.push(new Bushes(550, 690, ''));
+            // bushes.push(new Bushes(750, 400, 'bush'));
+            // bushes.push(new Bushes(690, 550, ''));
             // var img = new Image()
             //     img.onload = () => {
             //         ctx.drawImage(img, player.x, player.y)
@@ -36,17 +37,21 @@
             // }
             // window.requestAnimationFrame(step);
         
-            var player = new Player(150, 250, 'cat', 30, 50, 0, 30, false, '', false, false);
+            // var player = new Player(150, 250, 'cat', 30, 50, 0, 30, false, '', false, false);
 
-            setInterval(() => {
-                ctx.clearRect(player.x, player.y, 50, 50)
-                const pic = new Image();
-                pic.src = require(`@/assets/${player.img}.png`);
-                pic.onload = function() {
-                    ctx.drawImage(pic, player.x, player.y, 50, 50);
-                }
-                player.move();
-            }, 10);
+            // setInterval(() => {
+            //     ctx.clearRect(player.x, player.y, 50, 50)
+            //     const pic = new Image();
+            //     const bush = new Image();
+            //     pic.src = require(`@/assets/${player.img}.png`);
+            //     bush.src = require(`@/assets/${bushes[0].img}.png`);
+            //     pic.onload = function() {
+            //         ctx.drawImage(pic, player.x, player.y, 50, 50);
+            //         ctx.drawImage(bush, bushes[0].x, bushes[0].y, 50, 50)
+            //     }
+            //     player.move();
+            //     bushes[0].move()
+            // }, 10);
         }
     }
 </script>
