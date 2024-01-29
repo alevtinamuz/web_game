@@ -4,17 +4,17 @@
     </div>
 </template>
 
-<script>
 
+<script >
     export default {
         mounted: function() {
             const canvas = this.$refs.supercanvas;
             const ctx = canvas.getContext('2d');
-            // const pic = new Image();
-            // pic.src = require('/src/assets/cat.png');
-            // pic.onload = function() {
-            //     ctx.drawImage(pic, 0, 0, 800, 600);
-            // }
+            const pic = new Image();
+            pic.src = require('/src/assets/cat.png');
+            pic.onload = function() {
+                ctx.drawImage(pic, 0, 0, 800, 600);
+            }
             ctx.fillRect(100, 100, 50, 50);
             
             var x = 750;
@@ -23,7 +23,7 @@
             ctx.fillRect(x, y, 50, 50);
 
             setInterval(() => {
-                ctx.clearRect(x, y, 50, 50)
+                ctx.clearRect(x, y, 50, 50);
                 x--;
                 ctx.fillRect(x, y, 50, 50);
             }, 10);
