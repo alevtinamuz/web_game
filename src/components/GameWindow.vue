@@ -10,7 +10,7 @@
     export default {
         mounted() {
             // const ctx = this.$refs.supercanvas.getContext('2d');
-            // var canvas : any = document.getElementById("supercanvas");
+            var canvas : any = document.getElementById("supercanvas");
             var ctx = canvas.getContext("2d");
             
             // var bushes = [];
