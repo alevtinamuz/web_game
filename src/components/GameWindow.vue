@@ -9,7 +9,7 @@
     import {Player} from './player';
     export default {
         mounted: function() {
-            const canvas = this.$refs.supercanvas;
+            const canvas: any = document.getElementById("supercanvas");
             const ctx = canvas.getContext('2d');
             
             // var bushes = [];
@@ -38,13 +38,13 @@
             var player = new Player(150, 250, 'cat', 30, 50, 0, 30, false, '', false, false);
 
             setInterval(() => {
+                ctx.clearRect(player.x, player.y, 50, 50)
                 const pic = new Image();
                 pic.src = require(`@/assets/${player.img}.png`);
                 pic.onload = function() {
                     ctx.drawImage(pic, player.x, player.y, 50, 50);
                 }
                 player.move();
-
             }, 10);
         }
     }
