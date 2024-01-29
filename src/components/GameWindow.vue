@@ -7,12 +7,11 @@
 
 <script lang="ts">
     import {Player} from './player';
-    import {Clouds} from './clouds';
-    import {Bushes} from './Bushes';
     export default {
         mounted: function() {
             const canvas = this.$refs.supercanvas;
             const ctx = canvas.getContext('2d');
+            
             // var bushes = [];
             // var clouds = [];
             // bushes.push(new Bushes(400, 750, ''));
@@ -45,7 +44,7 @@
                     ctx.drawImage(pic, player.x, player.y, 50, 50);
                 }
                 player.move();
-                
+
             }, 10);
         }
     }

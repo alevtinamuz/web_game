@@ -34,16 +34,16 @@ class Player {
         this.superRocket = superRocket;
     }
 
+    move() {
+        this.x++
+    }
+
     blower() {
         console.log("HelloWorld")
     }
 
     rocket() {
         console.log("HelloWorld")
-    }
-
-    move() {
-        this.x++;
     }
 }
 
