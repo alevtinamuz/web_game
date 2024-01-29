@@ -11,7 +11,7 @@ class Clouds {
     }
 
     move () {
-        console.log('clouds');
+        this.x--;
     }
 }
 
