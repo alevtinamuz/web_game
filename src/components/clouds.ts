@@ -9,8 +9,10 @@ class Clouds {
         this.y = y;
         this.img = img;
     }
-    
+
     move () {
         console.log('clouds');
     }
 }
+
+export {Clouds}

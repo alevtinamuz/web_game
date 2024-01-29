@@ -34,6 +34,10 @@ class Player {
         this.superRocket = superRocket;
     }
 
+    move() {
+        this.x++;
+    }
+
     blower() {
         console.log("HelloWorld")
     }

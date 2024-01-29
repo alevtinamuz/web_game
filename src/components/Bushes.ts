@@ -14,3 +14,5 @@ class Bushes {
         console.log("HelloWorld")
     }
 }
+
+export {Bushes}
