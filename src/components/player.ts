@@ -42,3 +42,5 @@ class Player {
         console.log("HelloWorld")
     }
 }
+
+export {Player}
