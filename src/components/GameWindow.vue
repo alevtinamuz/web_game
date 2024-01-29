@@ -5,7 +5,7 @@
 </template>
 
 
-<script >
+<script lang="ts">
     export default {
         mounted: function() {
             const canvas = this.$refs.supercanvas;
