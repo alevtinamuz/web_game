@@ -7,7 +7,7 @@
 
 <script lang="ts">
     import {Player} from './player';
-    import {Bushes} from './Bushes';
+    import {Bushes} from './bushes';
     import {Clouds} from './clouds';
     export default {
         mounted() {
@@ -96,7 +96,7 @@
                         player.height--;
                     }
                     else if(player.height <= 250 && bushes[i].y >= 450) {
-                        bushes[i].y -= 1;
+                        bushes[i].y--;
                     }
                 }
             }
