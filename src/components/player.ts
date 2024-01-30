@@ -34,8 +34,13 @@ class Player {
         this.superRocket = superRocket;
     }
 
-    move() {
+    fall () {
         console.log('jazz')
+    }
+
+    move() {
+        if (this.height > 250) 
+            this.height -= 5;
     }
 
     blower() {

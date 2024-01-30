@@ -43,12 +43,12 @@
             }
 
             function clearBushes() {
-                if (bushes[0].x <= -50)
+                if (bushes[0].x < -50)
                     bushes.shift()
             }
 
             function clearClouds() {
-                if (clouds[0].x <= -50) 
+                if (clouds[0].x < -50) 
                     clouds.shift()
             }
 
@@ -56,7 +56,8 @@
                 for (let i = 0; i < bushes.length; i++) {
                     let imgBush = new Image();
                     imgBush.onload = () => {
-                        ctx.drawImage(imgBush, bushes[i].x, bushes[i].y, 50, 50);
+                        if (bushes[i].y < 650 && bushes[i].y > 0)
+                            ctx.drawImage(imgBush, bushes[i].x, bushes[i].y, 50, 50);
                     }
                     imgBush.src = require(`@/assets/${bushes[i].img}.png`);
                 }
@@ -88,17 +89,9 @@
                 img.src = require(`@/assets/${player.img}.png`);
             }
 
-            function moveBushes() {
-                for (let i = 0; i < bushes.length; i++){
-                    bushes[i].move();
-                    if (player.height > 250) {
-                        bushes[i].y += 5;
-                        player.height--;
-                    }
-                    else if(player.height <= 250 && bushes[i].y >= 450) {
-                        bushes[i].y--;
-                    }
-                }
+            function moveBushes(height: number) {
+                for (let i = 0; i < bushes.length; i++)
+                    bushes[i].move(height);
             }
 
             function moveClouds() {
@@ -106,13 +99,15 @@
                     clouds[i].move();
             }
 
+            function movePlayer() {
+                player.move()
+            }
+
             addEventListener('keydown', (e: any) => {
-                if (e.keyCode == '32') {
-                    player.height += 50;
-                }
+                if (e.keyCode == '32')
+                    player.height += 20;
+                console.log(player.height)
             }); 
-
-
             
             function step() {
                 generationBushes();
@@ -126,8 +121,9 @@
                 drawClouds();
                 drawPlayer();
 
-                moveBushes();
+                moveBushes(player.height);
                 moveClouds();
+                movePlayer();
 
                 window.requestAnimationFrame(step);
             }

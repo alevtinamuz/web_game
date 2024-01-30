@@ -10,8 +10,15 @@ class Clouds {
         this.img = img;
     }
 
-    move () {
+    move (height: number) {
         this.x--;
+
+        // if (height > 250) {
+        //     this.y += 5;
+        // }
+        // else if(height <= 250 && this.y >= 450) {
+        //     this.y--;
+        // }
     }
 }
 
