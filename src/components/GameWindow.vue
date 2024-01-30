@@ -23,8 +23,8 @@
                 bushes.push(new Bushes(750, 450, 'bush'));
                 bushes.push(new Bushes(500, 450, 'bush'));
 
-                clouds.push(new Clouds(430, 50, ''));
-                clouds.push(new Clouds(520, 120, ''));
+                clouds.push(new Clouds(430, 50, 'cloud'));
+                clouds.push(new Clouds(520, 120, 'cloud'));
             }
 
             function generationBushes() {
@@ -38,7 +38,7 @@
                 if (clouds[clouds.length - 1].x < 600) {
                     let x = Math.floor(Math.random() * 300) + 800;
                     let y = Math.floor(Math.random() * 400);
-                    clouds.push(new Clouds(x, y, 'cloude'));
+                    clouds.push(new Clouds(x, y, 'cloud'));
                 }
             }
 
@@ -58,7 +58,7 @@
                     imgBush.onload = () => {
                         ctx.drawImage(imgBush, bushes[i].x, bushes[i].y, 50, 50);
                     }
-                    imgBush.src = require('/src/assets/bush.png');
+                    imgBush.src = require(`@/assets/${bushes[i].img}.png`);
                 }
             }
 
@@ -68,7 +68,7 @@
                     imgCloud.onload = () => {
                         ctx.drawImage(imgCloud, clouds[i].x, clouds[i].y, 50, 50);
                     }
-                    imgCloud.src = require('/src/assets/cloud.png');
+                    imgCloud.src = require(`@/assets/${clouds[i].img}.png`);
                 }
             }
 
@@ -85,7 +85,7 @@
                 img.onload = () => {
                     ctx.drawImage(img, player.x, player.y, 50, 50);
                 }
-                img.src = require('/src/assets/cat.png');
+                img.src = require(`@/assets/${player.img}.png`);
             }
 
             function moveBushes() {
@@ -109,7 +109,6 @@
             addEventListener('keydown', (e: any) => {
                 if (e.keyCode == '32') {
                     player.height += 50;
-                    console.log(player.height)
                 }
             }); 
 
