@@ -35,7 +35,7 @@ class Player {
     }
 
     move() {
-        this.x++
+        console.log('jazz')
     }
 
     blower() {
