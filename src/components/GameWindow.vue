@@ -68,7 +68,7 @@
                     imgCloud.onload = () => {
                         ctx.drawImage(imgCloud, clouds[i].x, clouds[i].y, 50, 50);
                     }
-                    imgCloud.src = require('/src/assets/cloude.png');
+                    imgCloud.src = require('/src/assets/cloud.png');
                 }
             }
 
