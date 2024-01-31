@@ -3,22 +3,18 @@ class Bushes {
     y: number;
     img: string;
     constructor(x: number,
-                y: number, 
-                img: string) {
+                y: number) {
         this.x = x;
         this.y = y;
-        this.img = img;
+        this.img = "bush";
     }
 
-    move(height: number) {
-        this.x -= 3;
-        if (height > 250) {
-            this.y += 5;
-        }
-        else if(height <= 250 && this.y >= 450) {
-            this.y -= 5;
-        }
+    move(height: number, speedX: number, speedY: number) {
+        this.x -= speedX;
 
+        if (height > 250) {
+            this.y += speedY;
+        }
     }
 }
 

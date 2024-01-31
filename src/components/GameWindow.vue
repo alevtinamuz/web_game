@@ -14,32 +14,29 @@
             var canvas: any = document.getElementById("supercanvas");
             var ctx = canvas.getContext("2d");
             
-            var player = new Player(150, 250, 'cat', 30, 50, 0, 250, false, '', false, false);
+            var player = new Player();
             
             var bushes = new Array(0);
             var clouds = new Array(0);
 
             function startGeneration() {
-                bushes.push(new Bushes(750, 450, 'bush'));
-                bushes.push(new Bushes(500, 450, 'bush'));
+                bushes.push(new Bushes(750, 450));
+                bushes.push(new Bushes(500, 450));
 
-                clouds.push(new Clouds(430, 50, 'cloud'));
-                clouds.push(new Clouds(520, 120, 'cloud'));
+                clouds.push(new Clouds(430, 50));
+                clouds.push(new Clouds(520, 120));
             }
 
             function generationBushes() {
-                if (bushes[bushes.length - 1].x < 600) {
-                    let x = Math.floor(Math.random() * 200) + 800;
-                    bushes.push(new Bushes(x, bushes[bushes.length - 1].y , 'bush'));
-                }
+                if (bushes[bushes.length - 1].x < 600)
+                    bushes.push(new Bushes(Math.floor(Math.random() * 200) + 800,
+                                           bushes[bushes.length - 1].y));
             }
 
             function generationClouds() {
-                if (clouds[clouds.length - 1].x < 600) {
-                    let x = Math.floor(Math.random() * 300) + 800;
-                    let y = Math.floor(Math.random() * 400);
-                    clouds.push(new Clouds(x, y, 'cloud'));
-                }
+                if (clouds[clouds.length - 1].x < 600)
+                    clouds.push(new Clouds(Math.floor(Math.random() * 300) + 800,
+                                           Math.floor(Math.random() * (-600)) + 400));
             }
 
             function clearBushes() {
@@ -56,7 +53,7 @@
                 for (let i = 0; i < bushes.length; i++) {
                     let imgBush = new Image();
                     imgBush.onload = () => {
-                        if (bushes[i].y < 650 && bushes[i].y > 0)
+                        if (bushes[i].y < 600 && bushes[i].y > 0)
                             ctx.drawImage(imgBush, bushes[i].x, bushes[i].y, 50, 50);
                     }
                     imgBush.src = require(`@/assets/${bushes[i].img}.png`);
@@ -67,7 +64,8 @@
                 for (let i = 0; i < clouds.length; i++) {
                     let imgCloud = new Image();
                     imgCloud.onload = () => {
-                        ctx.drawImage(imgCloud, clouds[i].x, clouds[i].y, 50, 50);
+                        if (clouds[i].y < 600 && clouds[i].y > 0)
+                            ctx.drawImage(imgCloud, clouds[i].x, clouds[i].y, 50, 50);
                     }
                     imgCloud.src = require(`@/assets/${clouds[i].img}.png`);
                 }
@@ -89,14 +87,14 @@
                 img.src = require(`@/assets/${player.img}.png`);
             }
 
-            function moveBushes(height: number) {
+            function moveBushes(height: number, speedX: number, speedY: number) {
                 for (let i = 0; i < bushes.length; i++)
-                    bushes[i].move(height);
+                    bushes[i].move(height, speedX, speedY);
             }
 
-            function moveClouds() {
+            function moveClouds(height: number, speedX: number, speedY: number) {
                 for (let i = 0; i < clouds.length; i++)
-                    clouds[i].move();
+                    clouds[i].move(height, speedX, speedY);
             }
 
             function movePlayer() {
@@ -105,8 +103,7 @@
 
             addEventListener('keydown', (e: any) => {
                 if (e.keyCode == '32')
-                    player.height += 20;
-                console.log(player.height)
+                    player.click()
             }); 
             
             function step() {
@@ -121,8 +118,8 @@
                 drawClouds();
                 drawPlayer();
 
-                moveBushes(player.height);
-                moveClouds();
+                moveBushes(player.height, player.speedX, player.speedY);
+                moveClouds(player.height, player.speedX, player.speedY);
                 movePlayer();
 
                 window.requestAnimationFrame(step);
