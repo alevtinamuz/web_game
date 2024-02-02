@@ -12,7 +12,9 @@ class Bushes {
     move(height: number, speedX: number, speedY: number) {
         this.x -= speedX;
 
-        if (height > 250) {
+        if (height <= 250) {
+            this.y = 450;
+        } else {
             this.y += speedY;
         }
     }

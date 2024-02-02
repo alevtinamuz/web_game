@@ -3,8 +3,11 @@ class Player {
     y: number;
     img: string;
     angle: number;
-    speedX: number; //прибавление к оси X за шаг
-    speedY: number; //прибавление к оси Y за шаг
+    v0: number;
+    count: number;
+    g: number;
+    speedX: number;
+    speedY: number;
     distance: number;
     height: number;
     dead: boolean;
@@ -16,8 +19,11 @@ class Player {
         this.y = 250;
         this.img = "cat";
         this.angle = 30 * Math.PI / 180;
-        this.speedX = 30;
-        this.speedY = this.speedX * Math.tan(this.angle);
+        this.v0 = 30;
+        this.count = 0;
+        this.g = 0.5;
+        this.speedX = this.v0 * Math.cos(this.angle);
+        this.speedY = this.v0 * Math.sin(this.angle);
         this.distance = 0;
         this.height = 250;
         this.dead = false;
@@ -26,45 +32,43 @@ class Player {
         this.superRocket = false;
     }
 
-    fall () {
-        console.log('jazz')
+    time() {
+        this.count++;
     }
 
     move() {
-        if (this.angle > - Math.PI / 2)
-            this.angle -= Math.PI / 180
-
-        if (this.speedX <= 0.02 && this.angle > 0) {
-            this.angle = -this.angle;
-            this.speedX = 0;
-        } 
-
-        if (this.angle >= 0 && this.speedX >= 0.18) {
-            this.speedX -= 0.2;
-        } else if (this.angle < 0 && this.height != 0) {
-            this.speedX += 0.2;
-        }
-            
-        this.speedY = this.speedX * Math.tan(this.angle);
+        this.speedY = this.v0 * Math.sin(this.angle) - this.g * this.count;
 
         this.distance += this.speedX;
         this.height += this.speedY;
 
         if (this.height < 250 && this.height > 0) {
-            this.y -= this.speedY;
-        } else if (this.height <= 0) {
+            this.y = 500 - this.height;
+        } 
+        else if (this.height <= 0) {
             this.height = 0;
             this.y = 500;
-            this.speedX = 0;
+            this.count = 0;
+            this.v0 = 0;
             this.angle = 0;
-        } else
-            this.y = 250
+            this.speedX = this.v0 * Math.cos(this.angle);
+            this.speedY = this.v0 * Math.sin(this.angle);
+        }
+        
+
+        // if (this.angle >= 0 && this.speedX >= 0.18) {
+        //     this.speedX -= 0.2;
+        // } else if (this.angle < 0 && this.height != 0) {
+        //     this.speedX += 0.2;
+        // }
     }
 
     click() {
+        this.v0 = 30;
         this.angle = 30 * Math.PI / 180;
-        this.speedX = 10;
-        this.speedY = this.speedX * Math.tan(this.angle);
+        this.speedX = this.v0 * Math.cos(this.angle);
+        this.speedY = this.v0 * Math.sin(this.angle);
+        this.count = 0;
     }
 
     blower() {

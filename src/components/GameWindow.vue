@@ -118,9 +118,12 @@
                 drawClouds();
                 drawPlayer();
 
+                player.time();
+
+                movePlayer();
                 moveBushes(player.height, player.speedX, player.speedY);
                 moveClouds(player.height, player.speedX, player.speedY);
-                movePlayer();
+
 
                 window.requestAnimationFrame(step);
             }
