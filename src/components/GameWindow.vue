@@ -9,6 +9,7 @@
     import {Player} from './player';
     import {Bushes} from './bushes';
     import {Clouds} from './clouds';
+    import {Abilities} from './abilities';
     export default {
         mounted() {
             var canvas: any = document.getElementById("supercanvas");
@@ -18,6 +19,7 @@
             
             var bushes = new Array(0);
             var clouds = new Array(0);
+            var abilities = new Array(0);
 
             function startGeneration() {
                 bushes.push(new Bushes(750, 450));
@@ -25,18 +27,32 @@
 
                 clouds.push(new Clouds(430, 50));
                 clouds.push(new Clouds(520, 120));
+
+                abilities.push(new Abilities("trampoline", 500, 550))
             }
 
             function generationBushes() {
-                if (bushes[bushes.length - 1].x < 600)
-                    bushes.push(new Bushes(Math.floor(Math.random() * 200) + 800,
-                                           bushes[bushes.length - 1].y));
+                if (bushes[bushes.length - 1].x < 600) {
+                    let x = Math.floor(Math.random() * 200) + 800;
+                    let y = bushes[bushes.length - 1].y;
+                    bushes.push(new Bushes(x, y));
+                }
             }
 
             function generationClouds() {
-                if (clouds[clouds.length - 1].x < 600)
-                    clouds.push(new Clouds(Math.floor(Math.random() * 300) + 800,
-                                           Math.floor(Math.random() * (-600)) + 400));
+                if (clouds[clouds.length - 1].x < 600) {
+                    let x = Math.floor(Math.random() * 300) + 800;
+                    let y = Math.floor(Math.random() * (-600)) + 400;
+                    clouds.push(new Clouds(x, y));
+                }
+            }
+
+            function generationAbilities() {
+                if (abilities[abilities.length - 1].x < 600) {
+                    let x = Math.floor(Math.random() * 400) + 800;
+                    let y = abilities[abilities.length - 1].y;
+                    abilities.push(new Abilities("trampoline", x, y));
+                }
             }
 
             function clearBushes() {
@@ -51,23 +67,35 @@
 
             function drawBushes() {
                 for (let i = 0; i < bushes.length; i++) {
-                    let imgBush = new Image();
-                    imgBush.onload = () => {
+                    let img = new Image();
+                    img.onload = () => {
                         if (bushes[i].y < 600 && bushes[i].y > 0)
-                            ctx.drawImage(imgBush, bushes[i].x, bushes[i].y, 50, 50);
+                            ctx.drawImage(img, bushes[i].x, bushes[i].y, 50, 50);
                     }
-                    imgBush.src = require(`@/assets/${bushes[i].img}.png`);
+                    img.src = require(`@/assets/${bushes[i].img}.png`);
                 }
             }
 
             function drawClouds() {
                 for (let i = 0; i < clouds.length; i++) {
-                    let imgCloud = new Image();
-                    imgCloud.onload = () => {
+                    let img = new Image();
+                    img.onload = () => {
                         if (clouds[i].y < 600 && clouds[i].y > 0)
-                            ctx.drawImage(imgCloud, clouds[i].x, clouds[i].y, 50, 50);
+                            ctx.drawImage(img, clouds[i].x, clouds[i].y, 50, 50);
                     }
-                    imgCloud.src = require(`@/assets/${clouds[i].img}.png`);
+                    img.src = require(`@/assets/${clouds[i].img}.png`);
+                }
+            }
+
+            function drawAbilities() {
+                for (let i = 0; i < abilities.length; i++) {
+                    let img = new Image();
+                    img.onload = () => {
+                        // if (abilities[i].y < 600 && abilities[i].y > 0)
+                        if (abilities[i].type == "trampoline")
+                            ctx.drawImage(img, abilities[i].x, abilities[i].y, 70, 50);
+                    }
+                    img.src = require(`@/assets/${abilities[i].img}.png`);
                 }
             }
 
@@ -97,6 +125,11 @@
                     clouds[i].move(height, speedX, speedY);
             }
 
+            function moveAbilities(height: number, speedX: number, speedY: number) {
+                for (let i = 0; i < abilities.length; i++)
+                    abilities[i].move(height, speedX, speedY)
+            }
+
             function movePlayer() {
                 player.move()
             }
@@ -109,6 +142,7 @@
             function step() {
                 generationBushes();
                 generationClouds();
+                generationAbilities()
 
                 clearBushes();
                 clearClouds();
@@ -116,6 +150,7 @@
                 drawBackground();
                 drawBushes();
                 drawClouds();
+                drawAbilities();
                 drawPlayer();
 
                 player.time();
@@ -123,6 +158,7 @@
                 movePlayer();
                 moveBushes(player.height, player.speedX, player.speedY);
                 moveClouds(player.height, player.speedX, player.speedY);
+                moveAbilities(player.height, player.speedX, player.speedY);
 
 
                 window.requestAnimationFrame(step);

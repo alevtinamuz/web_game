@@ -14,6 +14,7 @@ class Player {
     ball: string;
     skate: boolean;
     superRocket: boolean;
+    
     constructor() {
         this.x = 150;
         this.y = 250;

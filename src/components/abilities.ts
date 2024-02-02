@@ -5,14 +5,24 @@ class Abilities {
     img: string;
     constructor(type: string, 
                 x: number, 
-                y: number, 
-                img: string) {
+                y: number) {
         this.type = type;
         this.x = x;
         this.y = y;
-        this.img = img;
+        this.img = type;
     }
-    move() {
+    move(height: number, speedX: number, speedY: number) {
+        this.x -= speedX;
+        if (this.type == "trampoline") {
+            if (height <= 250) {
+                this.y = 550;
+            } else {
+                this.y += speedY;
+            }
+        }
+        
         console.log('ability');
     }
 }
+
+export {Abilities}
