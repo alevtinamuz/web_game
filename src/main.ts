@@ -7,7 +7,6 @@ import * as firebase from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyDd_XaHRbcESVjEgvUUjb5j29rWO7gC_Qk",
   authDomain: "game-web-fefu.firebaseapp.com",
