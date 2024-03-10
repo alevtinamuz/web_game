@@ -45,8 +45,7 @@ class Player {
 
         if (this.height < 250 && this.height > 0) {
             this.y = 500 - this.height;
-        } 
-        else if (this.height <= 0) {
+        } else if (this.height <= 0) {
             this.height = 0;
             this.y = 500;
             this.count = 0;
@@ -55,13 +54,6 @@ class Player {
             this.speedX = this.v0 * Math.cos(this.angle);
             this.speedY = this.v0 * Math.sin(this.angle);
         }
-        
-
-        // if (this.angle >= 0 && this.speedX >= 0.18) {
-        //     this.speedX -= 0.2;
-        // } else if (this.angle < 0 && this.height != 0) {
-        //     this.speedX += 0.2;
-        // }
     }
 
     click() {
@@ -79,8 +71,6 @@ class Player {
     rocket() {
         console.log("HelloWorld")
     }
-
-
 }
 
 export {Player}
