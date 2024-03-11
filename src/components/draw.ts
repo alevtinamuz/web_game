@@ -1,17 +1,19 @@
-// generation.ts
+const canvasWidth = 1300;
+const canvasHeight = 600;
+
 import {Player} from './player';
 import {Bushes} from './bushes';
 import {Clouds} from './clouds';
 import {Trampoline, Rocket, Blower, YellowBall, RedBall, SuperRocket, Skate} from './abilities';
 
-function clearCanvas(ctx: CanvasRenderingContext2D, canvas_width: number, canvas_height: number) {
-    ctx.clearRect(0, 0, canvas_width, canvas_height);
+function clearCanvas(ctx: CanvasRenderingContext2D) {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 }
 
-function drawBushes(ctx: CanvasRenderingContext2D, canvas_width: number, canvas_height: number, bushes: Bushes[]) {
+function drawBushes(ctx: CanvasRenderingContext2D, bushes: Bushes[]) {
     const imgB = new Image();
     imgB.onload = () => {
-        clearCanvas(ctx, canvas_width, canvas_height);
+        clearCanvas(ctx);
         for (let i = 0; i < bushes.length; i++) {
             ctx.drawImage(imgB, bushes[i]?.x, bushes[i]?.y, bushes[i].width_img, bushes[i].height_img);
             
@@ -108,6 +110,36 @@ function drawPlayer(ctx: CanvasRenderingContext2D, player: Player) {
     img.src = require(`@/assets/${player.img}.png`);
 }
 
+function drawPlayerInfo(ctx: CanvasRenderingContext2D, player: Player) {
+    // height
+    ctx.font = '24px Arial';
+    ctx.fillStyle = 'black';
+    ctx.fillText(`Distance: ${Math.floor(player.distance / 100)}`, 20, 40);
+
+    // scale
+    ctx.beginPath();
+    ctx.rect(1250, 30, 20, 100);
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.rect(1250, 30, 20, player.scale - player.scale % 10);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+    ctx.closePath();
+
+    //skate
+    if (player.skate) {
+        const img = new Image();
+        img.onload = () => {
+            ctx.drawImage(img, 1235, 145, 50, 19);
+        }
+        img.src = require(`@/assets/skateTrue.png`);
+    }
+}
+
 export function draw(
     player: Player,
     bushes: Bushes[],
@@ -119,10 +151,8 @@ export function draw(
     yellowBalls: YellowBall[],
     redBalls: RedBall[],
     skates: Skate[],
-    ctx: CanvasRenderingContext2D, 
-    canvas_width: number,
-    canvas_height: number) {
-        drawBushes(ctx, canvas_width, canvas_height, bushes);
+    ctx: CanvasRenderingContext2D) {
+        drawBushes(ctx, bushes);
         drawClouds(ctx, clouds);
         drawTrampolines(ctx, trampolines);
         drawRockets(ctx, rockets);
@@ -132,4 +162,5 @@ export function draw(
         drawRedBalls(ctx, redBalls);
         drawSkates(ctx, skates);
         drawPlayer(ctx, player);
+        drawPlayerInfo(ctx, player);
 }

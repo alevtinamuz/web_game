@@ -1,35 +1,32 @@
-// generation.ts
+const canvasWidth = 1300;
+const canvasHeight = 600;
+
 import {Player} from './player';
 import {Bushes} from './bushes';
 import {Clouds} from './clouds';
 import {Trampoline, Rocket, Blower, YellowBall, RedBall, SuperRocket, Skate} from './abilities';
 
 
-function generationBushes(bushes: Bushes[], canvas_width: number) {
-    if (bushes[bushes.length - 1]?.x < canvas_width - 200) {
-        if (Math.floor(Math.random() * 20) + 1 == 15) {
-            const x = Math.floor(Math.random() * 200) + canvas_width;
-            const y = bushes[bushes.length - 1].y
-            bushes.push(new Bushes(x, y));
-        }
+function generationBushes(bushes: Bushes[]) {
+    if (bushes[bushes.length - 1]?.x < canvasWidth - 300) {
+        const x = canvasWidth;
+        const y = bushes[bushes.length - 1].y
+        bushes.push(new Bushes(x, y));
     }
 }
 
-function generationClouds(player: Player, clouds: Clouds[], canvas_width: number) {
-    if (clouds[clouds.length - 1]?.x < canvas_width - 10) {
-        if (Math.floor(Math.random() * 20) + 1 == 15) {
-            const x = Math.floor(Math.random() * 100) + canvas_width;
-            const height = Math.floor(Math.random() * 5000) + 300;
-            clouds.push(new Clouds(x, height, player));
-        }
-        
+function generationClouds(player: Player, clouds: Clouds[]) {
+    if (clouds[clouds.length - 1]?.x < canvasWidth - 10) {
+        const x = canvasWidth;
+        const height = Math.floor(Math.random() * 5000) + 300;
+        clouds.push(new Clouds(x, height, player));
     }
 }
 
-function generationTrampolines(trampolines: Trampoline[], canvas_width: number) {
-    if (trampolines[trampolines.length - 1]?.x < canvas_width - 100) {
-        if (Math.floor(Math.random() * 70) + 1 == 15) {
-            const x = Math.floor(Math.random() * 400) + canvas_width;
+function generationTrampolines(trampolines: Trampoline[]) {
+    if (trampolines[trampolines.length - 1]?.x < canvasWidth - 100) {
+        if (Math.floor(Math.random() * 65) + 1 == 15) {
+            const x = canvasWidth;
             const y = trampolines[trampolines.length - 1].y
             trampolines.push(new Trampoline(x, y));
         }
@@ -37,62 +34,62 @@ function generationTrampolines(trampolines: Trampoline[], canvas_width: number) 
     }
 }
 
-function generationRockets(player: Player, rockets: Rocket[], canvas_width: number) {
-    if (rockets[rockets.length - 1]?.x < canvas_width - 100) {
-        if (Math.floor(Math.random() * 100) + 1 == 15) {
-            const x = Math.floor(Math.random() * 1000) + canvas_width;
+function generationRockets(player: Player, rockets: Rocket[]) {
+    if (rockets[rockets.length - 1]?.x < canvasWidth - 100) {
+        if (Math.floor(Math.random() * 25) + 1 == 15) {
+            const x = canvasWidth;
             const height = Math.floor(Math.random() * 4000) + 300;
             rockets.push(new Rocket(x, height, player));
         }
     }
 }
 
-function generationSuperRockets(player: Player, superRockets: SuperRocket[], canvas_width: number) {
-    if (superRockets[superRockets.length - 1]?.x < canvas_width - 1200) {
+function generationSuperRockets(player: Player, superRockets: SuperRocket[]) {
+    if (superRockets[superRockets.length - 1]?.x < canvasWidth - 1200) {
         if (Math.floor(Math.random() * 100) + 1 == 15) {
-            const x = Math.floor(Math.random() * 1000) + canvas_width + 500;
+            const x = canvasWidth;
             const height = Math.floor(Math.random() * 3000) + 300;
             superRockets.push(new SuperRocket(x, height, player));
         }
     }
 }
 
-function generationBlowers(player: Player, blowers: Blower[], canvas_width: number) {
-    if (blowers[blowers.length - 1]?.x < canvas_width - 300) {
-        if (Math.floor(Math.random() * 100) + 1 == 15) {
-            const x = Math.floor(Math.random() * 1000) + canvas_width;
-            const height = Math.floor(Math.random() * 3000) + 200;
+function generationBlowers(player: Player, blowers: Blower[]) {
+    if (blowers[blowers.length - 1]?.x < canvasWidth - 300) {
+        if (Math.floor(Math.random() * 30) + 1 == 15) {
+            const x = canvasWidth;
+            const height = Math.floor(Math.random() * 3000) + 300;
             blowers.push(new Blower(x, height, player));
         }
         
     }
 }
 
-function generationYellowBalls(player: Player, yellowBalls: YellowBall[], canvas_width: number) {
-    if (yellowBalls[yellowBalls.length - 1]?.x < canvas_width - 300) {
-        if (Math.floor(Math.random() * 100) + 1 == 15) {
-            const x = Math.floor(Math.random() * 1000) + canvas_width;
-            const height = Math.floor(Math.random() * 3000) + 200;
+function generationYellowBalls(player: Player, yellowBalls: YellowBall[]) {
+    if (yellowBalls[yellowBalls.length - 1]?.x < canvasWidth - 300) {
+        if (Math.floor(Math.random() * 40) + 1 == 15) {
+            const x = canvasWidth;
+            const height = Math.floor(Math.random() * 3000) + 300;
             yellowBalls.push(new YellowBall(x, height, player));
         }
         
     }
 }
 
-function generationRedBalls(player: Player, redBalls: RedBall[], canvas_width: number) {
-    if (redBalls[redBalls.length - 1]?.x < canvas_width - 100) {
-        if (Math.floor(Math.random() * 100) + 1 == 15) {
-            const x = Math.floor(Math.random() * 1000) + canvas_width;
+function generationRedBalls(player: Player, redBalls: RedBall[]) {
+    if (redBalls[redBalls.length - 1]?.x < canvasWidth - 100) {
+        if (Math.floor(Math.random() * 25) + 1 == 15) {
+            const x = canvasWidth;
             const height = Math.floor(Math.random() * 2000) + 300;
             redBalls.push(new RedBall(x, height, player));
         }
     }
 }
 
-function generationSkates(player: Player, skates: Skate[], canvas_width: number) {
-    if (skates[skates.length - 1]?.x < canvas_width - 100) {
-        if (Math.floor(Math.random() * 100) + 1 == 15) {
-            const x = Math.floor(Math.random() * 1000) + canvas_width;
+function generationSkates(player: Player, skates: Skate[]) {
+    if (skates[skates.length - 1]?.x < canvasWidth - 100) {
+        if (Math.floor(Math.random() * 50) + 1 == 15) {
+            const x = canvasWidth;
             const height = Math.floor(Math.random() * 2000) + 300;
             skates.push(new Skate(x, height, player));
         }
@@ -155,17 +152,16 @@ export function generation (
     blowers: Blower[],
     yellowBalls: YellowBall[],
     redBalls: RedBall[],
-    skates: Skate[],
-    canvas_width: number) {
-        generationBushes(bushes, canvas_width);
-        generationClouds(player, clouds, canvas_width);
-        generationTrampolines(trampolines, canvas_width);
-        generationRockets(player, rockets, canvas_width);
-        generationSuperRockets(player, superRockets, canvas_width);
-        generationBlowers(player, blowers, canvas_width);
-        generationYellowBalls(player, yellowBalls, canvas_width);
-        generationRedBalls(player, redBalls, canvas_width);
-        generationSkates(player, skates, canvas_width);
+    skates: Skate[]) {
+        generationBushes(bushes);
+        generationClouds(player, clouds);
+        generationTrampolines(trampolines);
+        generationRockets(player, rockets);
+        generationSuperRockets(player, superRockets);
+        generationBlowers(player, blowers);
+        generationYellowBalls(player, yellowBalls);
+        generationRedBalls(player, redBalls);
+        generationSkates(player, skates);
 
         clearBushes(bushes);
         clearClouds(clouds);

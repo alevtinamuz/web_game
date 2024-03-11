@@ -15,11 +15,22 @@
     import { draw } from './draw';
     export default {
         mounted() {
-            const canvas_width = 1300;
-            const canvas_height = 600;
+            const canvasWidth = 1300;
+            const canvasHeight = 600;
 
             var canvas: any = document.getElementById("supercanvas");
             var ctx = canvas.getContext("2d");
+
+            var gameOver = false;
+
+            var button = {
+                x: 500,
+                y: 50,
+                width: 300,
+                height: 100,
+                label: 'Start',
+                visible: true
+            };
             
             var player = new Player();
             
@@ -150,7 +161,10 @@
             function checkFall() {
                 if (player.y >= 500) {
                     for (let i = 0; i < trampolines.length; i++) {
-                        if (Math.abs(trampolines[i].x - player.x) <= 50) {
+                        if (trampolines[i].x - player.x <= player.width_img &&
+                            trampolines[i].x > player.x ||
+                            player.x <= trampolines[i].x + trampolines[i].width_img &&
+                            player.x > trampolines[i].x) {
                             if (player.ball == "red") {
                                 player.img = "hamsterInRedBall";
                                 player.width_img = 100;
@@ -199,28 +213,27 @@
             }
 
             addEventListener('keydown', (e: any) => {
-                if (e.keyCode == '32' && !player.moveOnSkate && !player.superRocket)
-                    player.jump();
+                if (e.keyCode == '32' && !player.moveOnSkate && !player.superRocket && !gameOver)
+                    player.click();
             }); 
             
             function step() {
-                generation(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates, canvas_width);
+                if (!gameOver) {
+                    generation(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates);
 
-                player.time();
+                    move(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates);
 
-                move(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates);
+                    checkFall();
+                    checkRockets();
+                    checkSuperRockets();
+                    checkBlowers();
+                    checkYellowBalls();
+                    checkRedBalls();
+                    checkSkate();
+                }
 
-                draw(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates, ctx,  canvas_width, canvas_height);
+                draw(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates, ctx);
 
-                checkFall();
-                checkRockets();
-                checkSuperRockets();
-                checkBlowers();
-                checkYellowBalls();
-                checkRedBalls();
-                checkSkate();
-
-                console.log(player.speedX);
                 window.requestAnimationFrame(step);
             }
 

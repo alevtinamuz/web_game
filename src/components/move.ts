@@ -1,4 +1,3 @@
-// generation.ts
 import {Player} from './player';
 import {Bushes} from './bushes';
 import {Clouds} from './clouds';
@@ -52,6 +51,7 @@ function moveSkates(player: Player, skates: Skate[]) {
 
 function movePlayer(player: Player) {
     player.move();
+    player.time();
 }
 
 export function move(

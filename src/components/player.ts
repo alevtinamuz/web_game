@@ -17,6 +17,7 @@ class Player {
     superRocket: boolean;
     width_img: number;
     height_img: number;
+    scale: number;
     
     constructor() {
         this.x = 150;
@@ -37,6 +38,7 @@ class Player {
         this.skate = false;
         this.moveOnSkate = false;
         this.superRocket = false;
+        this.scale = 100;
     }
 
     time() {
@@ -46,6 +48,8 @@ class Player {
     move() {
         this.distance += this.speedX;
         this.height += this.speedY;
+        if (this.scale < 100)
+            this.scale += 0.1;
 
         if (!this.moveOnSkate && !this.superRocket) {
             if (this.v0 * Math.sin(this.angle) - this.g * this.count > -40)
@@ -101,6 +105,23 @@ class Player {
                 }
                 this.jump();
             }
+        }
+    }
+
+    click() {
+        if (this.scale > 10 && !this.moveOnSkate && !this.superRocket) {
+            this.scale -= 10;
+            if (this.v0 == 0)
+                this.v0 = 30;
+            else if (this.v0 < 40)
+                this.v0++;
+            else
+                this.v0 = 40;
+
+            this.angle = 35 * Math.PI / 180;
+            this.speedX = this.v0 * Math.cos(this.angle);
+            this.speedY = this.v0 * Math.sin(this.angle);
+            this.count = 0;
         }
     }
 
