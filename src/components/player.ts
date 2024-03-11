@@ -21,9 +21,9 @@ class Player {
     constructor() {
         this.x = 150;
         this.y = 250;
-        this.img = "cat";
-        this.width_img = 50;
-        this.height_img = 50;
+        this.img = "hamster";
+        this.width_img = 60;
+        this.height_img = 40;
         this.angle = 30 * Math.PI / 180;
         this.v0 = 30;
         this.count = 0;
@@ -64,18 +64,41 @@ class Player {
                     this.speedX = 0;
             }
         } else if (this.moveOnSkate) {
+            this.img = "hamsterOnSkate";
+            this.width_img = 60;
+            this.height_img = 70;
             this.height = 0; 
             this.y = 500;
             this.v0 = 0;
             this.speedX -= 0.1;
-            if (this.speedX <= 0)
+            if (this.speedX <= 0) {
+                this.img = "hamster";
+                this.width_img = 60;
+                this.height_img = 40;
                 this.moveOnSkate = false;
+            }
         } else if (this.superRocket) {
+            this.img = "hamsterInRocket";
+            this.width_img = 100;
+            this.height_img = 100;
             this.speedY = 0;
             this.speedX = 40;
             this.count++;
             if (this.count >= 500) {
                 this.superRocket = false;
+                if (this.ball == "red") {
+                    this.img = "hamsterInRedBall";
+                    this.width_img = 100;
+                    this.height_img = 100;
+                } else if (this.ball == "yellow") {
+                    this.img = "hamsterInYellowBall";
+                    this.width_img = 100;
+                    this.height_img = 100;
+                } else {
+                    this.img = "hamster";
+                    this.width_img = 60;
+                    this.height_img = 40;
+                }
                 this.jump();
             }
         }

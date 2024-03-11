@@ -102,6 +102,10 @@
                             player.x < yellowBalls[i].x + yellowBalls[i].width_img &&
                             player.y + player.height_img > yellowBalls[i].y &&
                             player.y < yellowBalls[i].y + yellowBalls[i].height_img) {
+
+                            player.img = "hamsterInYellowBall";
+                            player.width_img = 100;
+                            player.height_img = 100;
                             player.ball = "yellow";
                             yellowBalls.splice(i, 1);
                             return;
@@ -117,6 +121,9 @@
                             player.x < redBalls[i].x + redBalls[i].width_img &&
                             player.y + player.height_img > redBalls[i].y &&
                             player.y < redBalls[i].y + redBalls[i].height_img) {
+                            player.img = "hamsterInRedBall";
+                            player.width_img = 100;
+                            player.height_img = 100;
                             player.ball = "red";
                             redBalls.splice(i, 1);
                             return;
@@ -144,6 +151,20 @@
                 if (player.y >= 500) {
                     for (let i = 0; i < trampolines.length; i++) {
                         if (Math.abs(trampolines[i].x - player.x) <= 50) {
+                            if (player.ball == "red") {
+                                player.img = "hamsterInRedBall";
+                                player.width_img = 100;
+                                player.height_img = 100;
+                            } else if (player.ball == "yellow") {
+                                player.img = "hamsterInYellowBall";
+                                player.width_img = 100;
+                                player.height_img = 100;
+                            } else {
+                                player.img = "hamster";
+                                player.width_img = 60;
+                                player.height_img = 40;
+                            }
+                            
                             player.big_jump();
                             player.moveOnSkate = false;
                             return;
@@ -153,12 +174,18 @@
                     if (player.ball == "yellow") {
                         player.big_jump();
                         player.ball = "no";
+                        player.img = "hamster";
+                        player.width_img = 60;
+                        player.height_img = 40;
                         return;
                     } 
 
                     if (player.ball == "red") {
                         player.jump();
                         player.ball = "no";
+                        player.img = "hamster";
+                        player.width_img = 60;
+                        player.height_img = 40;
                         return;
                     }
 

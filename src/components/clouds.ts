@@ -8,6 +8,8 @@ class Clouds {
     y: number;
     height: number;
     img: string;
+    width_img: number;
+    height_img: number;
     constructor(x: number, 
                 height: number, 
                 player: Player) {
@@ -19,6 +21,8 @@ class Clouds {
             this.y = canvas_height - height;
         }
         this.img = "cloud";
+        this.width_img = 150;
+        this.height_img = 75;
     }
 
     move(player: Player) {

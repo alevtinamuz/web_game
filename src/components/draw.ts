@@ -12,27 +12,22 @@ function drawBushes(ctx: CanvasRenderingContext2D, canvas_width: number, canvas_
     const imgB = new Image();
     imgB.onload = () => {
         clearCanvas(ctx, canvas_width, canvas_height);
-        ctx.beginPath();
-        ctx.rect(0, 0, 1300, 600); // Координаты x, y и ширина, высота прямоугольника
-        ctx.fillStyle = 'blue'; // Цвет заливки
-        ctx.fill(); // Заливаем прямоугольник
-        ctx.closePath();
         for (let i = 0; i < bushes.length; i++) {
-            ctx.drawImage(imgB, bushes[i]?.x, bushes[i]?.y, 50, 50);
+            ctx.drawImage(imgB, bushes[i]?.x, bushes[i]?.y, bushes[i].width_img, bushes[i].height_img);
             
         }
     }
-    imgB.src = require(`@/assets/${bushes[0].img}.png`);
+    imgB.src = require(`@/assets/bush.png`);
 }
 
 function drawClouds(ctx: CanvasRenderingContext2D, clouds: Clouds[]) {
     const imgC = new Image();
     imgC.onload = () => {
         for (let i = 0; i < clouds.length; i++) {
-            ctx.drawImage(imgC, clouds[i]?.x, clouds[i]?.y, 50, 50);
+            ctx.drawImage(imgC, clouds[i]?.x, clouds[i]?.y, clouds[i].width_img, clouds[i].height_img);
         }
     }
-    imgC.src = require(`@/assets/${clouds[0].img}.png`);
+    imgC.src = require(`@/assets/cloud.png`);
 }
 
 function drawTrampolines(ctx: CanvasRenderingContext2D, trampolines: Trampoline[]) {
@@ -42,7 +37,7 @@ function drawTrampolines(ctx: CanvasRenderingContext2D, trampolines: Trampoline[
             ctx.drawImage(imgA, trampolines[i]?.x, trampolines[i]?.y, trampolines[i].width_img, trampolines[i].height_img);
         }
     }
-    imgA.src = require(`@/assets/${trampolines[0].img}.png`);
+    imgA.src = require(`@/assets/trampoline.png`);
 }
 
 function drawRockets(ctx: CanvasRenderingContext2D, rockets: Rocket[]) {
@@ -62,7 +57,7 @@ function drawSuperRockets(ctx: CanvasRenderingContext2D, superRockets: SuperRock
             ctx.drawImage(imgA, superRockets[i]?.x, superRockets[i]?.y, superRockets[i].width_img, superRockets[i].height_img);
         }
     }
-    imgA.src = require(`@/assets/${superRockets[0].img}.png`);
+    imgA.src = require(`@/assets/superRocket.png`);
 }
 
 function drawBlowers(ctx: CanvasRenderingContext2D, blowers: Blower[]) {
@@ -72,7 +67,7 @@ function drawBlowers(ctx: CanvasRenderingContext2D, blowers: Blower[]) {
             ctx.drawImage(imgA, blowers[i]?.x, blowers[i]?.y, blowers[i].width_img, blowers[i].height_img);
         }
     }
-    imgA.src = require(`@/assets/${blowers[0].img}.png`);
+    imgA.src = require(`@/assets/blower.png`);
 }
 
 function drawYellowBalls(ctx: CanvasRenderingContext2D, yellowBalls: YellowBall[]) {
@@ -82,7 +77,7 @@ function drawYellowBalls(ctx: CanvasRenderingContext2D, yellowBalls: YellowBall[
             ctx.drawImage(imgA, yellowBalls[i]?.x, yellowBalls[i]?.y, yellowBalls[i].width_img, yellowBalls[i].height_img);
         }
     }
-    imgA.src = require(`@/assets/${yellowBalls[0].img}.png`);
+    imgA.src = require(`@/assets/yellowBall.png`);
 }
 
 function drawRedBalls(ctx: CanvasRenderingContext2D, redBalls: RedBall[]) {
@@ -92,7 +87,7 @@ function drawRedBalls(ctx: CanvasRenderingContext2D, redBalls: RedBall[]) {
             ctx.drawImage(imgA, redBalls[i]?.x, redBalls[i]?.y, redBalls[i].width_img, redBalls[i].height_img);
         }
     }
-    imgA.src = require(`@/assets/${redBalls[0].img}.png`);
+    imgA.src = require(`@/assets/redBall.png`);
 }
 
 function drawSkates(ctx: CanvasRenderingContext2D, skates: Skate[]) {
@@ -102,7 +97,7 @@ function drawSkates(ctx: CanvasRenderingContext2D, skates: Skate[]) {
             ctx.drawImage(imgA, skates[i]?.x, skates[i]?.y, skates[i].width_img, skates[i].height_img);
         }
     }
-    imgA.src = require(`@/assets/${skates[0].img}.png`);
+    imgA.src = require(`@/assets/skate.png`);
 }
 
 function drawPlayer(ctx: CanvasRenderingContext2D, player: Player) {

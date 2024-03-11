@@ -13,14 +13,14 @@ class Trampoline {
                 y: number) {
         this.x = x;
         this.y = y;
-        this.width_img = 50;
+        this.width_img = 100;
         this.height_img = 50;
         this.img = "trampoline";
     }
     move(player: Player) {
         this.x -= player.speedX;
         if (player.height <= 250) {
-            this.y = 550;
+            this.y = 500;
         } else {
             this.y += player.speedY;
         }
@@ -45,8 +45,8 @@ class Rocket {
         } else {
             this.y = canvas_height - height;
         }
-        this.width_img = 50;
-        this.height_img = 50;
+        this.width_img = 70;
+        this.height_img = 40;
         this.img = "rocket";
     }
     move(player: Player) {
@@ -76,8 +76,8 @@ class Blower {
         } else {
             this.y = canvas_height - height;
         }
-        this.width_img = 50;
-        this.height_img = 50;
+        this.width_img = 80;
+        this.height_img = 40;
         this.img = "blower";
     }
     move(player: Player) {
@@ -169,8 +169,8 @@ class SuperRocket {
         } else {
             this.y = canvas_height - height;
         }
-        this.width_img = 50;
-        this.height_img = 50;
+        this.width_img = 100;
+        this.height_img = 100;
         this.img = "superRocket";
     }
     move(player: Player) {
@@ -200,8 +200,8 @@ class Skate {
         } else {
             this.y = canvas_height - height;
         }
-        this.width_img = 50;
-        this.height_img = 50;
+        this.width_img = 80;
+        this.height_img = 30;
         this.img = "skate";
     }
     move(player: Player) {

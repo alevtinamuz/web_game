@@ -7,118 +7,141 @@ import {Trampoline, Rocket, Blower, YellowBall, RedBall, SuperRocket, Skate} fro
 
 function generationBushes(bushes: Bushes[], canvas_width: number) {
     if (bushes[bushes.length - 1]?.x < canvas_width - 200) {
-        const x = Math.floor(Math.random() * 200) + canvas_width;
-        const y = bushes[bushes.length - 1].y
-        bushes.push(new Bushes(x, y));
+        if (Math.floor(Math.random() * 20) + 1 == 15) {
+            const x = Math.floor(Math.random() * 200) + canvas_width;
+            const y = bushes[bushes.length - 1].y
+            bushes.push(new Bushes(x, y));
+        }
     }
 }
 
 function generationClouds(player: Player, clouds: Clouds[], canvas_width: number) {
     if (clouds[clouds.length - 1]?.x < canvas_width - 10) {
-        const x = Math.floor(Math.random() * 100) + canvas_width;
-        const height = Math.floor(Math.random() * 5000) + 300;
-        clouds.push(new Clouds(x, height, player));
+        if (Math.floor(Math.random() * 20) + 1 == 15) {
+            const x = Math.floor(Math.random() * 100) + canvas_width;
+            const height = Math.floor(Math.random() * 5000) + 300;
+            clouds.push(new Clouds(x, height, player));
+        }
+        
     }
 }
 
 function generationTrampolines(trampolines: Trampoline[], canvas_width: number) {
-    if (trampolines[trampolines.length - 1]?.x < canvas_width - 500) {
-        const x = Math.floor(Math.random() * 400) + canvas_width;
-        const y = trampolines[trampolines.length - 1].y
-        trampolines.push(new Trampoline(x, y));
+    if (trampolines[trampolines.length - 1]?.x < canvas_width - 100) {
+        if (Math.floor(Math.random() * 70) + 1 == 15) {
+            const x = Math.floor(Math.random() * 400) + canvas_width;
+            const y = trampolines[trampolines.length - 1].y
+            trampolines.push(new Trampoline(x, y));
+        }
+        
     }
 }
 
 function generationRockets(player: Player, rockets: Rocket[], canvas_width: number) {
     if (rockets[rockets.length - 1]?.x < canvas_width - 100) {
-        const x = Math.floor(Math.random() * 1000) + canvas_width;
-        const height = Math.floor(Math.random() * 2000) + 300;
-        rockets.push(new Rocket(x, height, player));
+        if (Math.floor(Math.random() * 100) + 1 == 15) {
+            const x = Math.floor(Math.random() * 1000) + canvas_width;
+            const height = Math.floor(Math.random() * 4000) + 300;
+            rockets.push(new Rocket(x, height, player));
+        }
     }
 }
 
 function generationSuperRockets(player: Player, superRockets: SuperRocket[], canvas_width: number) {
-    if (superRockets[superRockets.length - 1]?.x < canvas_width - 100) {
-        const x = Math.floor(Math.random() * 1000) + canvas_width;
-        const height = Math.floor(Math.random() * 2000) + 300;
-        superRockets.push(new SuperRocket(x, height, player));
+    if (superRockets[superRockets.length - 1]?.x < canvas_width - 1200) {
+        if (Math.floor(Math.random() * 100) + 1 == 15) {
+            const x = Math.floor(Math.random() * 1000) + canvas_width + 500;
+            const height = Math.floor(Math.random() * 3000) + 300;
+            superRockets.push(new SuperRocket(x, height, player));
+        }
     }
 }
 
 function generationBlowers(player: Player, blowers: Blower[], canvas_width: number) {
-    if (blowers[blowers.length - 1]?.x < canvas_width - 100) {
-        const x = Math.floor(Math.random() * 1000) + canvas_width;
-        const height = Math.floor(Math.random() * 2000) + 300;
-        blowers.push(new Blower(x, height, player));
+    if (blowers[blowers.length - 1]?.x < canvas_width - 300) {
+        if (Math.floor(Math.random() * 100) + 1 == 15) {
+            const x = Math.floor(Math.random() * 1000) + canvas_width;
+            const height = Math.floor(Math.random() * 3000) + 200;
+            blowers.push(new Blower(x, height, player));
+        }
+        
     }
 }
 
 function generationYellowBalls(player: Player, yellowBalls: YellowBall[], canvas_width: number) {
-    if (yellowBalls[yellowBalls.length - 1]?.x < canvas_width - 100) {
-        const x = Math.floor(Math.random() * 1000) + canvas_width;
-        const height = Math.floor(Math.random() * 2000) + 300;
-        yellowBalls.push(new YellowBall(x, height, player));
+    if (yellowBalls[yellowBalls.length - 1]?.x < canvas_width - 300) {
+        if (Math.floor(Math.random() * 100) + 1 == 15) {
+            const x = Math.floor(Math.random() * 1000) + canvas_width;
+            const height = Math.floor(Math.random() * 3000) + 200;
+            yellowBalls.push(new YellowBall(x, height, player));
+        }
+        
     }
 }
 
 function generationRedBalls(player: Player, redBalls: RedBall[], canvas_width: number) {
     if (redBalls[redBalls.length - 1]?.x < canvas_width - 100) {
-        const x = Math.floor(Math.random() * 1000) + canvas_width;
-        const height = Math.floor(Math.random() * 2000) + 300;
-        redBalls.push(new RedBall(x, height, player));
+        if (Math.floor(Math.random() * 100) + 1 == 15) {
+            const x = Math.floor(Math.random() * 1000) + canvas_width;
+            const height = Math.floor(Math.random() * 2000) + 300;
+            redBalls.push(new RedBall(x, height, player));
+        }
     }
 }
 
 function generationSkates(player: Player, skates: Skate[], canvas_width: number) {
     if (skates[skates.length - 1]?.x < canvas_width - 100) {
-        const x = Math.floor(Math.random() * 1000) + canvas_width;
-        const height = Math.floor(Math.random() * 2000) + 300;
-        skates.push(new Skate(x, height, player));
+        if (Math.floor(Math.random() * 100) + 1 == 15) {
+            const x = Math.floor(Math.random() * 1000) + canvas_width;
+            const height = Math.floor(Math.random() * 2000) + 300;
+            skates.push(new Skate(x, height, player));
+        }
+        
     }
 }
 
 function clearBushes(bushes: Bushes[]) {
-    while (bushes[0].x < -50 && bushes.length > 1)
+    while (bushes[0]?.x < -1000 && bushes.length > 1)
         bushes.shift();
 }
 
 function clearClouds(clouds: Clouds[]) {
-    while (clouds[0].x < -50 && clouds.length > 1) 
+    while (clouds[0]?.x < -1000 && clouds.length > 1) 
         clouds.shift();
 }
 
 function clearTrampolines(trampolines: Trampoline[]) {
-    while (trampolines[0].x < -50 && trampolines.length > 1)
+    while (trampolines[0]?.x < -1000 && trampolines.length > 1)
         trampolines.shift();
 }
 
 function clearRockets(rockets: Rocket[]) {
-    while (rockets[0]?.x < -50 && rockets.length > 1)
+    while (rockets[0]?.x < -1000 && rockets.length > 1)
         rockets.shift();
 }
 
 function clearSuperRockets(superRockets: SuperRocket[]) {
-    while (superRockets[0].x < -50 && superRockets.length > 1)
+    while (superRockets[0]?.x < -1000 && superRockets.length > 1)
         superRockets.shift();
 }
 
 function clearBlowers(blowers: Blower[]) {
-    while (blowers[0].x < -50 && blowers.length > 1)
+    while (blowers[0]?.x < -1000 && blowers.length > 1)
         blowers.shift()
 }
 
 function clearYellowBalls(yellowBalls: YellowBall[]) {
-    while (yellowBalls[0].x < -50 && yellowBalls.length > 1)
+    while (yellowBalls[0]?.x < -1000 && yellowBalls.length > 1)
         yellowBalls.shift()
 }
 
 function clearRedBalls(redBalls: RedBall[]) {
-    while (redBalls[0].x < -50 && redBalls.length > 1)
+    while (redBalls[0]?.x < -1000 && redBalls.length > 1)
         redBalls.shift()
 }
 
 function clearSkates(skates: Skate[]) {
-    while (skates[0].x < -50 && skates.length > 1)
+    while (skates[0]?.x < -1000 && skates.length > 1)
         skates.shift()
 }
 
