@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas id="supercanvas" width="800" height="600"></canvas>
+        <canvas id="supercanvas" width="1300" height="600"></canvas>
     </div>
 </template>
 
@@ -9,9 +9,15 @@
     import {Player} from './player';
     import {Bushes} from './bushes';
     import {Clouds} from './clouds';
-    import {Trampoline} from './abilities';
+    import {Trampoline, Rocket, Blower, YellowBall, RedBall, SuperRocket, Skate} from './abilities';
+    import { move } from './move';
+    import { generation } from './generation';
+    import { draw } from './draw';
     export default {
         mounted() {
+            const canvas_width = 1300;
+            const canvas_height = 600;
+
             var canvas: any = document.getElementById("supercanvas");
             var ctx = canvas.getContext("2d");
             
@@ -20,151 +26,178 @@
             var bushes = new Array(0);
             var clouds = new Array(0);
             var trampolines = new Array(0);
+            var rockets = new Array(0);
+            var superRockets = new Array(0);
+            var blowers = new Array(0);
+            var yellowBalls = new Array(0);
+            var redBalls = new Array(0);
+            var skates = new Array(0);
+
+            
 
             function startGeneration() {
                 bushes.push(new Bushes(750, 450));
                 bushes.push(new Bushes(500, 450));
 
-                clouds.push(new Clouds(430, 50));
-                clouds.push(new Clouds(520, 120));
+                clouds.push(new Clouds(830, 500, player));
+                clouds.push(new Clouds(1000, 250, player));
 
-                trampolines.push(new Trampoline(500, 550))
+                trampolines.push(new Trampoline(500, 500));
+                rockets.push(new Rocket(600, 300, player));
+                superRockets.push(new SuperRocket(1400, 100, player));
+                blowers.push(new Blower(1000, 100, player));
+                yellowBalls.push(new YellowBall(2000, 100, player));
+                redBalls.push(new RedBall(1500, 300, player));
+                skates.push(new Skate(1200, 100, player));
             }
 
-            function generationBushes() {
-                if (bushes[bushes.length - 1].x < 600) {
-                    bushes.push(new Bushes(Math.floor(Math.random() * 200) + 800, 
-                                           bushes[bushes.length - 1].y));
-                }
-            }
-
-            function generationClouds() {
-                if (clouds[clouds.length - 1].x < 600) {
-                    clouds.push(new Clouds(Math.floor(Math.random() * 300) + 800, 
-                                           Math.floor(Math.random() * (-600)) + 400));
-                }
-            }
-
-            function generationTrampolines() {
-                if (trampolines[trampolines.length - 1].x < 600) {
-                    trampolines.push(new Trampoline(Math.floor(Math.random() * 400) + 1300, 
-                                                    trampolines[trampolines.length - 1].y));
-                }
-            }
-
-            function clearBushes() {
-                while (bushes[0].x < -50 && bushes.length > 1)
-                    bushes.shift()
-            }
-
-            function clearClouds() {
-                while (clouds[0].x < -50 && clouds.length > 1) 
-                    clouds.shift()
-            }
-
-            function clearTrampolines() {
-                while (trampolines[0].x < -50 && trampolines.length > 1)
-                    trampolines.shift()
-            }
-
-            function drawBushes() {
-                let imgB = new Image();
-                imgB.onload = () => {
-                    ctx.clearRect(0, 0, 800, 600);
-                    for (let i = 0; i < bushes.length; i++) {
-                        ctx.drawImage(imgB, bushes[i]?.x, bushes[i]?.y, 50, 50);
-                        
+            function checkRockets() {
+                if (!player.superRocket) {
+                    for (let i = 0; i < rockets.length; i++) {
+                        if (player.x + player.width_img > rockets[i].x &&
+                            player.x < rockets[i].x + rockets[i].width_img &&
+                            player.y + player.height_img > rockets[i].y &&
+                            player.y < rockets[i].y + rockets[i].height_img) {
+                            player.rocket();
+                            rockets.splice(i, 1);
+                            return;
+                        }
                     }
                 }
-                imgB.src = require(`@/assets/bush.png`);
             }
 
-            function drawClouds() {
-                let imgC = new Image();
-                imgC.onload = () => {
-                    for (let i = 0; i < clouds.length; i++) {
-                        ctx.drawImage(imgC, clouds[i]?.x, clouds[i]?.y, 50, 50);
+            function checkSuperRockets() {
+                if (!player.superRocket) {
+                    for (let i = 0; i < superRockets.length; i++) {
+                        if (player.x + player.width_img > superRockets[i].x &&
+                            player.x < superRockets[i].x + superRockets[i].width_img &&
+                            player.y + player.height_img > superRockets[i].y &&
+                            player.y < superRockets[i].y + superRockets[i].height_img) {
+                            player.superRocket = true;
+                            rockets.splice(i, 1);
+                            return;
+                        }
                     }
                 }
-                imgC.src = require(`@/assets/cloud.png`);
             }
 
-            function drawTrampolines() {
-                let imgA = new Image();
-                imgA.onload = () => {
+            function checkBlowers() {
+                if (!player.superRocket) {
+                    for (let i = 0; i < blowers.length; i++) {
+                        if (player.x + player.width_img > blowers[i].x &&
+                            player.x < blowers[i].x + blowers[i].width_img &&
+                            player.y + player.height_img > blowers[i].y - 100 &&
+                            player.y < blowers[i].y + blowers[i].height_img) {
+                            player.blower();
+                            return;
+                        }
+                    }
+                }
+            }
+
+            function checkYellowBalls() {
+                if (!player.superRocket) {
+                    for (let i = 0; i < yellowBalls.length; i++) {
+                        if (player.x + player.width_img > yellowBalls[i].x &&
+                            player.x < yellowBalls[i].x + yellowBalls[i].width_img &&
+                            player.y + player.height_img > yellowBalls[i].y &&
+                            player.y < yellowBalls[i].y + yellowBalls[i].height_img) {
+                            player.ball = "yellow";
+                            yellowBalls.splice(i, 1);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            function checkRedBalls() {
+                if (!player.superRocket) {
+                    for (let i = 0; i < redBalls.length; i++) {
+                        if (player.x + player.width_img > redBalls[i].x &&
+                            player.x < redBalls[i].x + redBalls[i].width_img &&
+                            player.y + player.height_img > redBalls[i].y &&
+                            player.y < redBalls[i].y + redBalls[i].height_img) {
+                            player.ball = "red";
+                            redBalls.splice(i, 1);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            function checkSkate() {
+                if (!player.skate && !player.superRocket) {
+                    for (let i = 0; i < skates.length; i++) {
+                        if (player.x + player.width_img > skates[i].x &&
+                            player.x < skates[i].x + skates[i].width_img &&
+                            player.y + player.height_img > skates[i].y &&
+                            player.y < skates[i].y + skates[i].height_img) {
+                            player.skate = true;
+                            skates.splice(i, 1);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            function checkFall() {
+                if (player.y >= 500) {
                     for (let i = 0; i < trampolines.length; i++) {
-                        ctx.drawImage(imgA, trampolines[i]?.x, trampolines[i]?.y, 70, 50);
+                        if (Math.abs(trampolines[i].x - player.x) <= 50) {
+                            player.big_jump();
+                            player.moveOnSkate = false;
+                            return;
+                        }
+                    }
+
+                    if (player.ball == "yellow") {
+                        player.big_jump();
+                        player.ball = "no";
+                        return;
+                    } 
+
+                    if (player.ball == "red") {
+                        player.jump();
+                        player.ball = "no";
+                        return;
+                    }
+
+                    if (player.skate) {
+                        player.moveOnSkate = true;
+                        player.skate = false;
+
+                        return;
                     }
                 }
-                imgA.src = require(`@/assets/trampoline.png`);
-            }
-
-            // function drawBackground() {
-            //     let back = new Image();
-            //     back.onload = () => {
-            //         ctx.drawImage(back, 0, 0, 800, 600);
-            //     }
-            //     back.src = require('/src/assets/autumn.png')
-            // }
-
-            function drawPlayer() {
-                let img = new Image();
-                img.onload = () => {
-                    ctx.drawImage(img, player.x, player.y, 50, 50);
-                }
-                img.src = require(`@/assets/${player.img}.png`);
-            }
-
-            function moveBushes(height: number, speedX: number, speedY: number) {
-                for (let i = 0; i < bushes.length; i++)
-                    bushes[i].move(height, speedX, speedY);
-            }
-
-            function moveClouds(height: number, speedX: number, speedY: number) {
-                for (let i = 0; i < clouds.length; i++)
-                    clouds[i].move(height, speedX, speedY);
-            }
-
-            function moveTrampolines(height: number, speedX: number, speedY: number) {
-                for (let i = 0; i < trampolines.length; i++)
-                    trampolines[i].move(height, speedX, speedY)
-            }
-
-            function movePlayer() {
-                player.move()
             }
 
             addEventListener('keydown', (e: any) => {
-                if (e.keyCode == '32')
-                    player.click()
+                if (e.keyCode == '32' && !player.moveOnSkate && !player.superRocket)
+                    player.jump();
             }); 
             
             function step() {
-                generationBushes();
-                generationClouds();
-                generationTrampolines()
-
-                clearBushes();
-                clearClouds();
-                clearTrampolines();
-                
-                // drawBackground();
-                drawBushes();
-                drawClouds();
-                drawTrampolines();
-                drawPlayer();
+                generation(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates, canvas_width);
 
                 player.time();
 
-                movePlayer();
-                moveBushes(player.height, player.speedX, player.speedY);
-                moveClouds(player.height, player.speedX, player.speedY);
-                moveTrampolines(player.height, player.speedX, player.speedY);
+                move(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates);
 
+                draw(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates, ctx,  canvas_width, canvas_height);
+
+                checkFall();
+                checkRockets();
+                checkSuperRockets();
+                checkBlowers();
+                checkYellowBalls();
+                checkRedBalls();
+                checkSkate();
+
+                console.log(player.speedX);
                 window.requestAnimationFrame(step);
             }
 
-            startGeneration()
+            startGeneration();
             window.requestAnimationFrame(step);
         }
     }
