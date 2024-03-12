@@ -1,22 +1,23 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import { ref } from 'vue';
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
 
-import * as firebase from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDd_XaHRbcESVjEgvUUjb5j29rWO7gC_Qk",
-  authDomain: "game-web-fefu.firebaseapp.com",
-  projectId: "game-web-fefu",
-  storageBucket: "game-web-fefu.appspot.com",
-  messagingSenderId: "540728304504",
-  appId: "1:540728304504:web:c94cb68134859327335e8d",
-  measurementId: "G-ZTJVV1XEBG"
+  apiKey: "AIzaSyDF_QnOP8yDf2yd5rrMhvWmO2kHSqK0Ro4",
+  authDomain: "hamstersgame-1e306.firebaseapp.com",
+  projectId: "hamstersgame-1e306",
+  storageBucket: "hamstersgame-1e306.appspot.com",
+  messagingSenderId: "1031162790036",
+  appId: "1:1031162790036:web:8513918f9798b8532e7481",
+  measurementId: "G-RHZ6482HB5"
 };
 
-firebase.initializeApp(firebaseConfig)
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).mount('#app');

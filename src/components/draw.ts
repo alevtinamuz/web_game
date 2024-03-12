@@ -30,7 +30,7 @@ function drawButton(ctx: CanvasRenderingContext2D, button:Button) {
     }
 }
 
-function drawGameOver(ctx: CanvasRenderingContext2D, gameOver: boolean, player: Player) {
+function drawGameOver(ctx: CanvasRenderingContext2D, gameOver: boolean, player: Player, newRecord: boolean, currentRecord: number) {
     if (gameOver) {
         ctx.font = '110px Arial';
         ctx.fillStyle = 'white';
@@ -40,6 +40,16 @@ function drawGameOver(ctx: CanvasRenderingContext2D, gameOver: boolean, player: 
         ctx.font = '50px Arial';
         ctx.fillStyle = 'white';
         ctx.fillText(`Distance: ${Math.floor(player.distance / 100)}`, 500, 300);
+
+        if (newRecord) {
+            ctx.font = '50px Arial';
+            ctx.fillStyle = 'white';
+            ctx.fillText("NEW RECORD!", 470, 370);
+        } else {
+            ctx.font = '50px Arial';
+            ctx.fillStyle = 'white';
+            ctx.fillText(`Your record: ${currentRecord}`, 470, 370);
+        }
     }
 }
 
@@ -199,7 +209,9 @@ export function draw(
     ctx: CanvasRenderingContext2D,
     button: Button,
     gameOver: boolean,
-    start: boolean) {
+    start: boolean,
+    newRecord: boolean,
+    currentRecord: number) {
         drawBushes(ctx, bushes);
         drawClouds(ctx, clouds);
         drawTrampolines(ctx, trampolines);
@@ -213,7 +225,7 @@ export function draw(
         drawPlayerInfo(ctx, player);
         drawBackGround(ctx, gameOver, start);
         drawButton(ctx, button);
-        drawGameOver(ctx, gameOver, player);
+        drawGameOver(ctx, gameOver, player, newRecord, currentRecord);
 }
 
 export {Button}

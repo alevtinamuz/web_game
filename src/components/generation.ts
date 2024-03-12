@@ -173,3 +173,29 @@ export function generation (
         clearRedBalls(redBalls);
         clearSkates(skates);
 }
+
+export function startGeneration(
+    player: Player,
+    bushes: Bushes[],
+    clouds: Clouds[],
+    trampolines: Trampoline[],
+    rockets: Rocket[],
+    superRockets: SuperRocket[],
+    blowers: Blower[],
+    yellowBalls: YellowBall[],
+    redBalls: RedBall[],
+    skates: Skate[]) {
+    bushes.push(new Bushes(750, 450));
+    bushes.push(new Bushes(500, 450));
+
+    clouds.push(new Clouds(830, 500, player));
+    clouds.push(new Clouds(1000, 250, player));
+
+    trampolines.push(new Trampoline(500, 500));
+    rockets.push(new Rocket(600, 300, player));
+    superRockets.push(new SuperRocket(1400, 100, player));
+    blowers.push(new Blower(1000, 100, player));
+    yellowBalls.push(new YellowBall(2000, 100, player));
+    redBalls.push(new RedBall(1500, 300, player));
+    skates.push(new Skate(1200, 100, player));
+}

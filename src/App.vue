@@ -1,34 +1,52 @@
 <template>
   <nav>
-    <router-link to="/">home</router-link> |
-    <router-link to="/game">game</router-link> |
-    <router-link to="/rating">rating</router-link> |
-    <router-link to="/sign-up">sign up</router-link> |
-    <router-link to="/sign-in">sign in</router-link> |
-    <router-link to="/sign-out">sign out</router-link>
+    <router-link v-if="!isAuthenticated" to="/">Home</router-link>
+    <router-link v-if="isAuthenticated" to="/Profile">Profile</router-link>
+    <router-link v-if="isAuthenticated" to="/game">Game</router-link>
+    <router-link v-if="isAuthenticated" to="/rating">Rating</router-link>
+    <router-link v-if="!isAuthenticated" to="/sign-up">Sign up</router-link>
+    <router-link v-if="!isAuthenticated" to="/sign-in">Sign in</router-link>
+    <router-link v-if="isAuthenticated" to="/sign-out">Sign out</router-link>
   </nav>
   <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { ref, onMounted } from 'vue';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
+export default {
+  setup() {
+    const isAuthenticated = ref(false);
+
+    onMounted(() => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        isAuthenticated.value = !!user;
+      });
+    });
+
+    return {
+      isAuthenticated
+    };
+  }
+}
+</script>
+
+<style>
 nav {
+  display: flex;
+  justify-content: space-around;
   padding: 30px;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+a {
+  font-size: 30px;
+  text-decoration: none;
+  color: #000;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+a.router-link-exact-active {
+  color: #000; /* Цвет для активной ссылки */
 }
 </style>
