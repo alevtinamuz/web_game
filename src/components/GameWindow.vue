@@ -12,7 +12,7 @@
     import {Trampoline, Rocket, Blower, YellowBall, RedBall, SuperRocket, Skate} from './abilities';
     import { move } from './move';
     import { generation } from './generation';
-    import { draw } from './draw';
+    import { draw, Button } from './draw';
     export default {
         mounted() {
             const canvasWidth = 1300;
@@ -22,13 +22,14 @@
             var ctx = canvas.getContext("2d");
 
             var gameOver = false;
+            var start = false;
 
-            var button = {
+            let startButton: Button = {
+                label: "Start",
                 x: 500,
-                y: 50,
+                y: 400,
                 width: 300,
                 height: 100,
-                label: 'Start',
                 visible: true
             };
             
@@ -209,6 +210,12 @@
 
                         return;
                     }
+
+                    if (player.moveOnSkate)
+                        return;
+
+                    gameOver = true;
+                    startButton.visible = true;
                 }
             }
 
@@ -216,9 +223,45 @@
                 if (e.keyCode == '32' && !player.moveOnSkate && !player.superRocket && !gameOver)
                     player.click();
             }); 
+
+            function isInsideButton(x: number, y: number, button: Button) {
+                return x > button.x && x < button.x + button.width && y > button.y && y < button.y + button.height;
+            }
+
+            function play() {
+                start = true;
+                gameOver = false;
+                startButton.visible = true;
+                startButton.label = "Replay";
+                startButton.visible = false;
+
+                player = new Player();
+            
+                bushes = new Array(0);
+                clouds = new Array(0);
+                trampolines = new Array(0);
+                rockets = new Array(0);
+                superRockets = new Array(0);
+                blowers = new Array(0);
+                yellowBalls = new Array(0);
+                redBalls = new Array(0);
+                skates = new Array(0);
+
+                startGeneration();
+            }
+
+            canvas.addEventListener('click', function (e: any) {
+                var rect = canvas.getBoundingClientRect();
+                var mouseX = e.clientX - rect.left;
+                var mouseY = e.clientY - rect.top;
+
+                if (isInsideButton(mouseX, mouseY, startButton) && startButton.visible) {
+                    play();
+                }
+            });
             
             function step() {
-                if (!gameOver) {
+                if (!gameOver && start) {
                     generation(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates);
 
                     move(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates);
@@ -232,7 +275,7 @@
                     checkSkate();
                 }
 
-                draw(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates, ctx);
+                draw(player, bushes, clouds, trampolines, rockets, superRockets, blowers, yellowBalls, redBalls, skates, ctx, startButton, gameOver, start);
 
                 window.requestAnimationFrame(step);
             }

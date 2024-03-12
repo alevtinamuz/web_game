@@ -6,6 +6,51 @@ import {Bushes} from './bushes';
 import {Clouds} from './clouds';
 import {Trampoline, Rocket, Blower, YellowBall, RedBall, SuperRocket, Skate} from './abilities';
 
+interface Button {
+    label: string;
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    visible: boolean
+}
+
+function drawButton(ctx: CanvasRenderingContext2D, button:Button) {
+    if (button.visible) {
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(button.x, button.y, button.width, button.height);
+
+        ctx.font = '60px Arial';
+        ctx.fillStyle = 'white';
+        if (button.label == "Start")
+            ctx.fillText(button.label, button.x + 80, button.y + 70);
+        else
+            ctx.fillText(button.label, button.x + 60, button.y + 70);
+    }
+}
+
+function drawGameOver(ctx: CanvasRenderingContext2D, gameOver: boolean, player: Player) {
+    if (gameOver) {
+        ctx.font = '110px Arial';
+        ctx.fillStyle = 'white';
+        ctx.fillText("GAME OVER", 300, 200);
+
+        // height
+        ctx.font = '50px Arial';
+        ctx.fillStyle = 'white';
+        ctx.fillText(`Distance: ${Math.floor(player.distance / 100)}`, 500, 300);
+    }
+}
+
+function drawBackGround(ctx: CanvasRenderingContext2D, gameOver: boolean, start: boolean) {
+    if (gameOver || !start) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    }
+}
+
+
 function clearCanvas(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 }
@@ -151,7 +196,10 @@ export function draw(
     yellowBalls: YellowBall[],
     redBalls: RedBall[],
     skates: Skate[],
-    ctx: CanvasRenderingContext2D) {
+    ctx: CanvasRenderingContext2D,
+    button: Button,
+    gameOver: boolean,
+    start: boolean) {
         drawBushes(ctx, bushes);
         drawClouds(ctx, clouds);
         drawTrampolines(ctx, trampolines);
@@ -163,4 +211,9 @@ export function draw(
         drawSkates(ctx, skates);
         drawPlayer(ctx, player);
         drawPlayerInfo(ctx, player);
+        drawBackGround(ctx, gameOver, start);
+        drawButton(ctx, button);
+        drawGameOver(ctx, gameOver, player);
 }
+
+export {Button}
