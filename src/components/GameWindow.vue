@@ -24,10 +24,10 @@
             var currentRecord = 0;
 
             if (userId) {
-                userRef = dbRef(db, `users/${userId}/record`); // Ссылка на текущего пользователя и его рекорд
+                userRef = dbRef(db, `users/${userId}/record`); 
                 get(userRef).then((snapshot) => {
                 if (snapshot.exists()) {
-                    currentRecord = snapshot.val(); // Получение значения рекорда текущего пользователя
+                    currentRecord = snapshot.val(); 
                     console.log("Текущий рекорд пользователя:", currentRecord);
                 } else {
                     console.log("Запись не найдена для текущего пользователя.");
@@ -38,14 +38,6 @@
             } else {
                 console.log("ID пользователя не найден.");
             }
-
-            function updateRecord(userId, newRecord) {
-                const userRef = dbRef(db, `users/${userId}/record`);
-                set(userRef, newRecord);
-            }
-
-            const canvasWidth = 1300;
-            const canvasHeight = 600;
 
             var canvas: any = document.getElementById("supercanvas");
             var ctx = canvas.getContext("2d");
@@ -136,7 +128,8 @@
 
                     if (Math.floor(player.distance / 100) > currentRecord) {
                         currentRecord = Math.floor(player.distance / 100); // Обновляем текущий рекорд
-                        updateRecord(userId, Math.floor(player.distance / 100)); // Отправляем новый рекорд на сервер
+                        const userRef = dbRef(db, `users/${userId}/record`);
+                        set(userRef, Math.floor(player.distance / 100));
                         newRecord = true;
                     }
 
