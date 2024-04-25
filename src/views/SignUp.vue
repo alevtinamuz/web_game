@@ -1,11 +1,14 @@
 <template>
-  <div class="centered">
-    <h1 class="title">Sign up</h1>
-    <input type="text" placeholder="name" v-model="name" class="input-field">
-    <input type="email" placeholder="email" v-model="email" class="input-field">
-    <input type="password" placeholder="password" v-model="password" class="input-field">
-    <button @click="registerNewUser" class="btn">Sign up</button>
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="max-w-lg p-6 bg-white rounded shadow-lg shadow-emerald-100">
+      <input type="text" placeholder="name" v-model="name" class="w-full border-2 border-emerald-100 focus:outline-none focus:ring-1 focus:ring-emerald-100 rounded p-2 m-3 mt-12">
+      <input type="email" placeholder="email" v-model="email" class="w-full border-2 border-emerald-100 focus:outline-none focus:ring-1 focus:ring-emerald-100 rounded p-2 m-3">
+      <input type="password" placeholder="password" v-model="password" class="w-full border-2 border-emerald-100 focus:outline-none focus:ring-1 focus:ring-emerald-100 rounded p-2 m-3">
+      <button @click="registerNewUser" class="w-full bg-emerald-100 text-black font-medium py-2 m-3 rounded hover:bg-emerald-200 transition-colors">Sign up</button>
+    </div>
+    
   </div>
+  
 </template>
 
 <script setup>

@@ -5,7 +5,6 @@ import RatingView from '../views/RatingView.vue'
 import SignUp from '../views/SignUp.vue'
 import SignIn from '../views/SignIn.vue'
 import ProfileView from '../views/ProfileView.vue'
-import SignOut from '../views/SignOut.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -45,12 +44,6 @@ const routes: Array<RouteRecordRaw> = [
     component: SignIn,
     meta: { requiresAuth: false }
   },
-  {
-    path: '/sign-out',
-    name: 'sign-out',
-    component: SignOut,
-    meta: { requiresAuth: true }
-  }
 ]
 
 const router = createRouter({

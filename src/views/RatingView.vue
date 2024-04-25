@@ -1,59 +1,24 @@
 <template>
-  <div class="rating-table-container">
-    <h2 class="heading">Rating</h2>
-    <table class="rating-table">
+  <div class="flex items-center min-h-screen flex-col mt-12">
+    <h2 class="text-2xl mb-4">Rating</h2>
+    <table class="border-collapse border-2 border-emerald-100 w-4/5 rounded shadow-lg shadow-emerald-100">
       <thead>
         <tr>
-          <th class="position-column">Position</th>
-          <th>Name</th>
-          <th>Record</th>
+          <th class="bg-emerald-100 font-normal p-2">Position</th>
+          <th class="bg-emerald-100 font-normal p-2">Name</th>
+          <th class="bg-emerald-100 font-normal p-2">Record</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(user, index) in sortedUsers" :key="index" :class="{ 'highlighted-row': user.userId === currentUserId }">
-          <td class="centered-cell position-column">{{ index + 1 }}</td>
-          <td class="centered-cell">{{ user.name }}</td>
-          <td class="centered-cell">{{ user.record }}</td>
+        <tr v-for="(user, index) in sortedUsers" :key="index" :class="{ 'bg-emerald-100': user.userId === currentUserId }">
+          <td class="text-center p-2">{{ index + 1 }}</td>
+          <td class="text-center p-2">{{ user.name }}</td>
+          <td class="text-center p-2">{{ user.record }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
-
-<style>
-.rating-table-container {
-  margin: 0 auto;
-  font-size: 18px;
-}
-
-.rating-table {
-  width: 80%;
-  border-collapse: collapse;
-  margin: 0 auto;
-}
-
-.rating-table th, .rating-table td {
-  padding: 10px;
-  border: 1px solid black;
-  text-align: center; /* Центрирование содержимого в ячейках */
-}
-
-.heading {
-  text-align: center; /* Центрирование заголовка */
-}
-
-.highlighted-row {
-  background-color: yellow;
-}
-
-.centered-cell {
-  text-align: center;
-}
-
-.position-column {
-  width: 70px; /* Уменьшаем ширину колонки "Position" */
-}
-</style>
 
 <script setup>
 import { ref, onMounted } from 'vue';

@@ -1,5 +1,5 @@
 <template>
-    <div class="center">
+    <div class="flex items-center justify-center my-14">
         <canvas id="supercanvas" width="1300" height="600"></canvas>
     </div>
 </template>
